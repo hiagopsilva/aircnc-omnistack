@@ -9,7 +9,13 @@ export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [techs, setTechs] = useState('');
 
-  
+  useEffect(() => {
+    AsyncStorage.getItem('user').then(user => {
+      if(user) {
+        navigation.navigate('List');
+      }
+    })
+  }, []);
 
   async function handleSubmit() {
     const response = await api.post('/sessions', {
